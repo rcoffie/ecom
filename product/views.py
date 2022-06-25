@@ -15,6 +15,11 @@ class ProductList(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
 
 
+class ProductDetail(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -23,3 +28,8 @@ class CategoryList(generics.ListCreateAPIView):
 class CartList(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+
+class CartDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer 
