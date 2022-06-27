@@ -2,8 +2,8 @@ from django.shortcuts import render
 from product.models import Product , Category , Cart
 from product.serializers import  CartSerializer, CategorySerializer, ProductSerializer
 from rest_framework import generics
-
 from django_filters.rest_framework import DjangoFilterBackend
+from product.pagination import ProductPagination
 # Create your views here.
 
 
@@ -17,6 +17,7 @@ class ProductList(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields  = ['category','name']
+    pagination_class = ProductPagination
 
 
 class ProductDetail(generics.RetrieveAPIView):

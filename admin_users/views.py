@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from django.contrib.auth.models import User
 from admin_users.serializers import UserSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+from .pagination import AdminPagination
 # Create your views here.
 
 
@@ -17,6 +18,7 @@ class AdminProductList(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser]
     filter_backends = [DjangoFilterBackend]
     filterset_fields  = ['category','name']
+    pagination_class = AdminPagination
 
 
 class AdminProductDetail(generics.RetrieveUpdateDestroyAPIView):
