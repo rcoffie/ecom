@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser, AllowAny
 from django.contrib.auth.models import User
 from admin_users.serializers import UserSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 
 
@@ -14,6 +15,8 @@ class AdminProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAdminUser]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields  = ['category','name']
 
 
 class AdminProductDetail(generics.RetrieveUpdateDestroyAPIView):

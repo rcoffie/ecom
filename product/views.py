@@ -2,6 +2,8 @@ from django.shortcuts import render
 from product.models import Product , Category , Cart
 from product.serializers import  CartSerializer, CategorySerializer, ProductSerializer
 from rest_framework import generics
+
+from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 
 
@@ -13,6 +15,8 @@ from rest_framework import generics
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields  = ['category','name']
 
 
 class ProductDetail(generics.RetrieveAPIView):
@@ -25,6 +29,7 @@ class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
 
 
+
 class CartList(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
@@ -32,4 +37,4 @@ class CartList(generics.ListCreateAPIView):
 
 class CartDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()
-    serializer_class = CartSerializer 
+    serializer_class = CartSerializer
