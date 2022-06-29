@@ -4,6 +4,8 @@ from product.serializers import  CartSerializer, CategorySerializer, ProductSeri
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from product.pagination import ProductPagination
+from product.permissions import CartOwner
+from rest_framework.decorators import permission_classes
 # Create your views here.
 
 
@@ -34,8 +36,20 @@ class CategoryList(generics.ListCreateAPIView):
 class CartList(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+    persissions_classes = [CartOwner]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+
+        return Cart.objects.filter(user=user)
+
+
 
 
 class CartDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+    persissions_classes = [CartOwner]
