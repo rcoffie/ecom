@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 import datetime
+
 # Create your models here.
 
 current_datetime = datetime.datetime.now()
@@ -35,6 +36,7 @@ class Product(models.Model):
 
 class Cart(models.Model):
     cart_id = models.SlugField(unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
