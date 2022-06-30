@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     #packages
     'rest_framework',
     'rest_framework.authtoken',
-     'django_filters',
+    'django_filters',
+    # 'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
+    'drf_yasg',
 
 
 
