@@ -5,7 +5,7 @@ from rest_framework.decorators import permission_classes
 
 from product.models import Cart, Category, Product
 from product.pagination import ProductPagination
-from product.permissions import CartOwner
+from product.permissions import CartUser
 from product.serializers import CartSerializer, CategorySerializer, ProductSerializer
 
 # Create your views here.
@@ -32,7 +32,7 @@ class CategoryList(generics.ListCreateAPIView):
 class CartList(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-    persissions_classes = [CartOwner]
+    persissions_classes = [CartUser]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -46,4 +46,4 @@ class CartList(generics.ListCreateAPIView):
 class CartDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-    persissions_classes = [CartOwner]
+    permission_classes = [CartUser]
