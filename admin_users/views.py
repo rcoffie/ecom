@@ -1,14 +1,16 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
-from product.serializers import ProductSerializer, CartSerializer, CategorySerializer
-from product.models import Category, Cart, Product
+from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from product.models import Cart, Category, Product
+from product.serializers import CartSerializer, CategorySerializer, ProductSerializer
 from rest_framework import generics
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser, AllowAny
-from django.contrib.auth.models import User
+from rest_framework.permissions import AllowAny, IsAdminUser
+
 from admin_users.serializers import UserSerializer
-from django_filters.rest_framework import DjangoFilterBackend
+
 from .pagination import AdminPagination
+
 # Create your views here.
 
 
@@ -17,7 +19,7 @@ class AdminProductList(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     permission_classes = [IsAdminUser]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields  = ['category','name']
+    filterset_fields = ["category", "name"]
     pagination_class = AdminPagination
 
 
